@@ -1,85 +1,92 @@
-# Lab1 - PHÂN TÍCH KIẾN TRÚC, CƠ CHẾ, CA SỬ DỤNG
+# Lab 1 - PHÂN TÍCH KIẾN TRÚC, CƠ CHẾ, CA SỬ DỤNG
 
 ## 1. Phân tích kiến trúc
+
 ### 1.1. Đề xuất Kiến trúc
+
 #### 1.1.1 Kiến trúc Tổng thể
-- Client-Server Architecture: Sử dụng mô hình kiến trúc client-server để phân tách các yêu cầu của người dùng và các dịch vụ xử lý dữ liệu. Nhân viên sẽ sử dụng ứng dụng trên máy tính để bàn để gửi thông tin, và hệ thống sẽ xử lý dữ liệu trên máy chủ.
+- **Client-Server Architecture**: Sử dụng mô hình kiến trúc client-server để phân tách các yêu cầu của người dùng từ các dịch vụ xử lý dữ liệu trên máy chủ. Nhân viên có thể sử dụng ứng dụng máy tính để bàn để gửi thông tin, trong khi hệ thống sẽ xử lý các yêu cầu trên máy chủ.
 
 #### 1.1.2 Thành phần Kiến trúc
-#### 1.1.2.1 Client Layer:
-- Windows Desktop Application: Giao diện cho nhân viên nhập thông tin như thời gian làm việc, đơn hàng, và tùy chọn thanh toán. Giao diện thân thiện và dễ sử dụng.
-Reporting Module: Cung cấp khả năng truy vấn và tạo báo cáo cho nhân viên về giờ làm việc, số tiền đã nhận, và thời gian nghỉ còn lại.
 
-#### 1.1.2.2 Business Logic Layer:
-- Payroll Processing Engine: Chịu trách nhiệm tính toán tiền lương, xử lý các yêu cầu của nhân viên và tạo báo cáo. Đảm bảo rằng lương được thanh toán chính xác và đúng hạn.
-- Timecard Management: Quản lý việc ghi nhận thời gian làm việc của nhân viên, kiểm tra tính hợp lệ và lưu trữ dữ liệu.
-- Commission Calculation: Tính toán hoa hồng cho nhân viên có lương cơ bản.
-  
-#### 1.1.2.3 Data Access Layer:
-- Employee Database: Cơ sở dữ liệu chứa thông tin nhân viên, giờ làm việc, và đơn hàng. Cung cấp chức năng thêm, xóa và sửa thông tin nhân viên.
-- Project Management Database (DB2): Kết nối tới cơ sở dữ liệu hiện tại để lấy thông tin về dự án và charge numbers mà không cập nhật dữ liệu.
-  
-#### 1.1.2.4 Integration Layer:
-- Payment Processing Module: Tích hợp với các phương thức thanh toán như chuyển khoản ngân hàng và gửi thư. Đảm bảo rằng thanh toán được thực hiện đúng phương thức mà nhân viên chọn.
+- **Client Layer**:
+  - *Windows Desktop Application*: Giao diện thân thiện cho nhân viên nhập các thông tin như thời gian làm việc, đơn hàng, và tùy chọn thanh toán.
+  - *Reporting Module*: Cung cấp tính năng tạo báo cáo cho nhân viên, bao gồm giờ làm việc, số tiền đã nhận, và thời gian nghỉ phép.
 
-#### 1.2. Biểu đồ Package
+- **Business Logic Layer**:
+  - *Payroll Processing Engine*: Xử lý việc tính toán tiền lương, yêu cầu thanh toán của nhân viên và tạo báo cáo.
+  - *Timecard Management*: Quản lý việc ghi nhận thời gian làm việc và lưu trữ dữ liệu.
+  - *Commission Calculation*: Tính toán hoa hồng cho nhân viên có lương cố định dựa trên doanh thu.
+
+- **Data Access Layer**:
+  - *Employee Database*: Cơ sở dữ liệu lưu trữ thông tin về nhân viên, giờ làm việc, và đơn hàng.
+  - *Project Management Database (DB2)*: Kết nối tới cơ sở dữ liệu hiện tại để lấy thông tin dự án và charge numbers, mà không cần thay thế hệ thống hiện tại.
+
+- **Integration Layer**:
+  - *Payment Processing Module*: Hỗ trợ thanh toán qua chuyển khoản ngân hàng, gửi thư, hoặc nhận tại công ty, đáp ứng sự linh hoạt cho nhân viên.
+
+### 1.2. Biểu đồ Package
 ![Diagram](https://www.planttext.com/api/plantuml/png/X99BQiCm48RtFiMGVQvGaZfP5188eT15o68g3qADf16IJ36X9-kYH-eLAZzArTQnjPt_CVEXp_UFLOZeOsrquL1SK18iIgt8HjXXGtu1rmBIEpqfM_5hW0s5IsG7Q-Uq4XWLstElE99Z7vMLiEUgrdGktegVqFiwA4iXm8wb4d_23zXurXeEdaNIj1bRAvD-Y7vKXWJw2lPeKvf9wmsJaerHoS4MIjIYriD6UVK68y9QYAxzL-_MECqD4RIIPmpVVMcF5n8ngyiKUVI3ZIHzr_d_fCwNdPHXcSG9o-NT99E9MUyTvJNhkiLoDAwtZ02ShPc4E---pNL5jce_yXS0003__mC0)
 
 ## 2. Cơ chế phân tích
+
 ### 2.1. Đề xuất Cơ chế
-### 2.1.1 Quản lý Thời gian làm việc:
-- Giải thích: Cơ chế này cho phép nhân viên ghi nhận và chỉnh sửa thời gian làm việc của mình trong một khoảng thời gian nhất định. Điều này đảm bảo tính chính xác trong việc thanh toán.
 
-### 2.1.2 Tính toán Tiền lương:
-- Giải thích: Tính toán lương cho cả nhân viên theo giờ và lương cố định, bao gồm việc tính toán lương ngoài giờ cho nhân viên làm việc trên 8 giờ.
+#### 2.1.1 Quản lý Thời gian làm việc
+- **Giải thích**: Cơ chế này cho phép nhân viên ghi nhận và điều chỉnh thời gian làm việc, đảm bảo tính chính xác trong việc thanh toán.
 
-### 2.1.3 Quản lý Hoa hồng:
-- Giải thích: Tính toán hoa hồng cho nhân viên có lương cố định dựa trên doanh thu từ đơn hàng. Cơ chế này đảm bảo nhân viên được thưởng công bằng dựa trên hiệu suất làm việc.
+#### 2.1.2 Tính toán Tiền lương
+- **Giải thích**: Tính lương cho cả nhân viên theo giờ và nhân viên lương cố định, bao gồm cả phụ cấp ngoài giờ.
 
-### 2.1.4 Tích hợp Cơ sở dữ liệu:
-- Giải thích: Kết nối tới cơ sở dữ liệu dự án hiện tại để lấy thông tin charge numbers mà không cần phải thay thế hệ thống hiện tại. Điều này giảm thiểu chi phí và rủi ro.
+#### 2.1.3 Quản lý Hoa hồng
+- **Giải thích**: Tính toán hoa hồng dựa trên doanh thu từ đơn hàng, đảm bảo phần thưởng công bằng cho nhân viên dựa trên hiệu suất.
 
-### 2.1.5 Chọn Phương thức Thanh toán:
-- Giải thích: Cho phép nhân viên lựa chọn giữa các phương thức thanh toán khác nhau (mail, chuyển khoản, hoặc nhận trực tiếp). Đảm bảo tính linh hoạt cho nhân viên.
+#### 2.1.4 Tích hợp Cơ sở dữ liệu
+- **Giải thích**: Kết nối tới cơ sở dữ liệu dự án hiện tại để lấy thông tin charge numbers mà không thay thế hệ thống, giảm thiểu chi phí và rủi ro.
 
-### 2.1.6 Báo cáo cho Nhân viên:
-- Giải thích: Cung cấp khả năng truy vấn và tạo báo cáo cho nhân viên về giờ làm việc, tổng tiền đã nhận và thời gian nghỉ còn lại. Điều này giúp nhân viên theo dõi thông tin của họ một cách dễ dàng.
+#### 2.1.5 Chọn Phương thức Thanh toán
+- **Giải thích**: Cho phép nhân viên lựa chọn các phương thức thanh toán linh hoạt như mail, chuyển khoản hoặc nhận trực tiếp.
 
-### 2.1.7 Tự động hóa Quy trình Thanh toán:
-- Giải thích: Thiết lập quy trình thanh toán tự động hàng tuần và vào cuối tháng, giúp giảm thiểu sự can thiệp của con người và tăng tính chính xác.
+#### 2.1.6 Báo cáo cho Nhân viên
+- **Giải thích**: Cung cấp khả năng truy vấn và báo cáo về giờ làm, tổng tiền lương và thời gian nghỉ phép.
+
+#### 2.1.7 Tự động hóa Quy trình Thanh toán
+- **Giải thích**: Thiết lập quy trình tự động thanh toán hàng tuần và cuối tháng, giảm thiểu can thiệp thủ công và nâng cao tính chính xác.
 
 ### 2.2. Kết quả Mong đợi
-- Danh sách các cơ chế phù hợp sẽ hỗ trợ trong việc phát triển hệ thống payroll mới, đảm bảo tính chính xác, an toàn, và dễ sử dụng cho nhân viên và quản trị viên.
+- Các cơ chế phù hợp hỗ trợ phát triển hệ thống payroll mới, đảm bảo tính chính xác, an toàn, và dễ sử dụng cho nhân viên và quản trị viên.
 
 ## 3. Phân tích ca sử dụng Payment
+
 ### 3.1. Xác định các lớp phân tích
-#### 3.1.1. Các lớp chính
+
+#### 3.1.1 Các lớp chính
 - **Employee**
-  - Nhiệm vụ: Đại diện cho nhân viên trong hệ thống, có khả năng chọn phương thức thanh toán.
-  - Thuộc tính: employeeID, name, paymentMethod, address, bankName, accountNumber.
-    
+  - Nhiệm vụ: Đại diện nhân viên, có khả năng chọn phương thức thanh toán.
+  - Thuộc tính: `employeeID`, `name`, `paymentMethod`, `address`, `bankName`, `accountNumber`.
+
 - **PaymentMethod**
-  - Nhiệm vụ: Đại diện cho các phương thức thanh toán có sẵn cho nhân viên.
-  - Thuộc tính: methodID, methodName (pick-up, mail, direct deposit).
-    
+  - Nhiệm vụ: Đại diện các phương thức thanh toán.
+  - Thuộc tính: `methodID`, `methodName` (pick-up, mail, direct deposit).
+
 - **PaymentService**
-  - Nhiệm vụ: Xử lý các yêu cầu liên quan đến việc chọn phương thức thanh toán và cập nhật thông tin nhân viên.
-  - Thuộc tính: None.
+  - Nhiệm vụ: Xử lý yêu cầu liên quan đến việc chọn phương thức thanh toán và cập nhật thông tin nhân viên.
 
 ### 3.2. Biểu đồ Sequence
-  ![Diagram](https://www.planttext.com/api/plantuml/png/Z99BJiCm48RtFiKeArZq0fM2ocl9GweuW6KFnAfVs9D8EGI7A3jOiU-2HQJUWnDm1PpYKBKAK6_6Jlxv_o-UVAxUPv5ueDfenWMv09V6QzSYCfyUAw4yjmJ5BMyDMffZQ9J00dY4l6UiBE6wwfujDAfxjI2gZzMJ1L-jtzPB-m2KpYyY5Muh8DSjBPGb6s9WSZ8uJI7WOusHSjWLKkNaqJ7Bxtlfq3O5gQBNlCtQ6q_AsPZ41-ByXX1HezWZC9kIhBacEF_sAxmIYqdj2mPfZH8AP-zLCFEDOw9BSAWZ_ZWOhlGVxVaoJgKC6FilwvMZp3wuHadSAdTYf0ef7oHw5nNz7tZ6xU82AS6DXMxbENLNZbQoyNdLNdB2WqQRB-vkqz6FT9Pi-p_q2m00__y30000)
-  
+![Diagram](https://www.planttext.com/api/plantuml/png/Z99BJiCm48RtFiKeArZq0fM2ocl9GweuW6KFnAfVs9D8EGI7A3jOiU-2HQJUWnDm1PpYKBKAK6_6Jlxv_o-UVAxUPv5ueDfenWMv09V6QzSYCfyUAw4yjmJ5BMyDMffZQ9J00dY4l6UiBE6wwfujDAfxjI2gZzMJ1L-jtzPB-m2KpYyY5Muh8DSjBPGb6s9WSZ8uJI7WOusHSjWLKkNaqJ7Bxtlfq3O5gQBNlCtQ6q_AsPZ41-ByXX1HezWZC9kIhBacEF_sAxmIYqdj2mPfZH8AP-zLCFEDOw9BSAWZ_ZWOhlGVxVaoJgKC6FilwvMZp3wuHadSAdTYf0ef7oHw5nNz7tZ6xU82AS6DXMxbENLNZbQoyNdLNdB2WqQRB-vkqz6FT9Pi-p_q2m00__y30000)
+
 ### 3.3 Quan hệ giữa các lớp
-- Employee có một phương thức thanh toán PaymentMethod.
-- PaymentService xử lý việc chọn phương thức thanh toán và cập nhật thông tin cho Employee.
-  
+- *Employee* có một phương thức thanh toán *PaymentMethod*.
+- *PaymentService* xử lý yêu cầu chọn phương thức thanh toán và cập nhật thông tin cho *Employee*.
+
 ### 3.4. Biểu đồ lớp
- ![Diagram](https://www.planttext.com/api/plantuml/png/P56n3e8m4Dtx5HSc7HXS6Go33WuI4xwWj1SbqeBjrOGOlyp1J_8N1Am4IfVcthjxxrtxURrJIzoGKnKJ5RSMzggfwXOH7Wow4mDwuB1B82TJwhCdD5SOG0rl5Mew8brgcS1fMleMBgL1QuF1WkjhjjJZGjHEK-PKWMRadinddUcFWTLGBkB-u9b9A9IZkPVYlpg0mPj3IpERrTgJhf6SCEGwoV45eqq4SJnSywG9MAnGa8Kj2wmdCwDEuhtwTfQYblrlVG400F__0m00)
- 
-### 3.5. Giải thích
-- Employee: Là người dùng tương tác với hệ thống để chọn phương thức thanh toán.
-- PaymentMethod: Lớp này lưu trữ thông tin về các phương thức thanh toán có sẵn (pick-up, mail, direct deposit).
-- PaymentService: Chịu trách nhiệm xử lý yêu cầu của nhân viên, yêu cầu thêm thông tin nếu cần và cập nhật thông tin phương thức thanh toán cho nhân viên.
+![Diagram](https://www.planttext.com/api/plantuml/png/P56n3e8m4Dtx5HSc7HXS6Go33WuI4xwWj1SbqeBjrOGOlyp1J_8N1Am4IfVcthjxxrtxURrJIzoGKnKJ5RSMzggfwXOH7Wow4mDwuB1B82TJwhCdD5SOG0rl5Mew8brgcS1fMleMBgL1QuF1WkjhjjJZGjHEK-PKWMRadinddUcFWTLGBkB-u9b9A9IZkPVYlpg0mPj3IpERrTgJhf6SCEGwoV45eqq4SJnSywG9MAnGa8Kj2wmdCwDEuhtwTfQYblrlVG400F__0m00)
+
+### 3.5 Giải thích
+- *Employee*: Người dùng tương tác với hệ thống để chọn phương thức thanh toán.
+- *PaymentMethod*: Cung cấp các lựa chọn thanh toán.
+- *PaymentService*: Đảm bảo yêu cầu của *Employee* được xử lý đúng cách.
+
 ## 4. Phân tích ca sử dụng Maintain Timecard
 ### 4.1. Xác định các lớp phân tích
 ### 4.1.1. Các lớp chính
